@@ -84,6 +84,7 @@ public class TimerGoldHouseExample extends Application {
         primaryStage.setTitle("Timer Gold House Example");
         
         primaryStage.setScene(scene);
+        //screenbounds passt die Bildschirmgröße an
         primaryStage.setX(screenBounds.getMinX());
         primaryStage.setY(screenBounds.getMinY());
         primaryStage.setWidth(screenBounds.getWidth());
