@@ -7,7 +7,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
  
@@ -16,19 +18,13 @@ public class TimerGoldHouseExample extends Application {
 
     private volatile boolean running = true;
     private int seconds = 0;
-    private int gold = 0;
-    private int houses = 0;
-    private int incomePerHouse = 1000; // Basis-Einkommen pro Haus alle 10 Sekunden
     private Label timerLabel;
-    private Label goldLabel;
-    private Button buyHouseButton;
-
+    private Button Hauseins;
     @Override
     public void start(Stage primaryStage) {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         timerLabel = new Label("0 seconds");
-        goldLabel = new Label("Gold: " + gold);
-        buyHouseButton = new Button("Buy House (4 Gold)");
+        Hauseins = new Button("Kaufe 1. Haus");
         // Thread f�r den Timer und das Gold-Einkommen durch das Haus
         Thread timerThread = new Thread(() -> {
             while (running) {
@@ -36,21 +32,7 @@ public class TimerGoldHouseExample extends Application {
                     Thread.sleep(1000); // Warte 1 Sekunde
                     seconds++;
                     // Aktualisiere das Label auf dem JavaFX-Thread
-                    Platform.runLater(() -> timerLabel.setText(seconds + " seconds"));
-
-                    // Gib dem Benutzer alle 10 Sekunden das Gold-Einkommen pro Haus
-                    if (seconds % 10 == 0) {
-                    if (houses - 1 < 0){
-                         gold = gold + 2;
-                         Platform.runLater(() -> goldLabel.setText("Gold: " + gold));
-                    } else {
-                        int totalIncome = incomePerHouse * houses;
-                        gold = gold + totalIncome;
-                        Platform.runLater(() -> goldLabel.setText("Gold: " + gold));
-                        
-                      } // end of if-else
-                     
-                    }
+                    Platform.runLater(() -> timerLabel.setText(seconds + " seconds"));   
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -60,29 +42,20 @@ public class TimerGoldHouseExample extends Application {
         timerThread.start();
 
         // Event Handler f�r den Kauf des Hauses
-        buyHouseButton.setOnAction(event -> {
-            if (gold >= 4) {
-                houses++;
-                gold -= 4;
-                incomePerHouse++;
-                Platform.runLater(() -> {
-                    goldLabel.setText("Gold: " + gold);
-                    buyHouseButton.setText("Buy House (4 Gold) - Houses Owned: " + houses);
-                });
-            }
-        });
+       
         
-        HBox root = new HBox();
+        Pane root = new Pane();
         root.setPadding(new Insets(10));
-        root.setSpacing(20);
-        root.getChildren().addAll(timerLabel, goldLabel, buyHouseButton);
+        root.getChildren().addAll(timerLabel, Hauseins);
 
         root.setId("pane");
         
     Scene scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight());
     scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
         primaryStage.setTitle("Timer Gold House Example");
-        
+        Image overlayImage1 = new Image("haus1.jpg");
+        ImageView overlayH1 = new ImageView(overlayImage1);
+        overlayH1.setVisible(false);
         primaryStage.setScene(scene);
         //screenbounds passt die Bildschirmgröße an
         primaryStage.setX(screenBounds.getMinX());
@@ -94,10 +67,16 @@ public class TimerGoldHouseExample extends Application {
 
         // Beende den Timer-Thread, wenn die Anwendung geschlossen wird
         primaryStage.setOnCloseRequest(event -> running = false);
+        Hauseins.setOnAction(event ->{
+            Hotel h1 = new Hotel(1,1.5, 10, 100); 
+            overlayH1.setVisible(true);
+            DynArray H1dyn = new DynArray();
+        });
     }
 
     public static void main(String[] args) {
         launch(args);
+      
     }
 }
 

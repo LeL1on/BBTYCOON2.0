@@ -126,7 +126,9 @@ public class DynArray {
       }
     }   
   }
-  
+  //public Besucher gehHaus(){
+
+  //}
   // Besucher an der Stelle i einfuegen, das alte Besucher an der Stelle i und alles weitere nach rechts schieben
   public void insertAt(int i) {
     if ((i < 1) || (i > getLength()+1)) {
