@@ -39,8 +39,8 @@ public class DynArray {
       tail = temp;  
     } else {
       Besucher temp = new Besucher( tail.getIndex() + 1, null);
-      System.out.println(tail.getIndex()+"");
-      // hier fehlt etwas
+     
+      
       tail.setNext(temp);
       tail = temp;
     }
