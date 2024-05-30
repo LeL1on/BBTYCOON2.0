@@ -26,8 +26,8 @@ public class DynArray {
     subArray3 = new DynArray();
 
 
-  
-  private void moveElement(){
+  }
+  public void moveElement(){
     if (!isEmpty()) {
       Besucher visitor = dequeue();
       append(); // main array wird nicht leer
@@ -43,7 +43,7 @@ public class DynArray {
   }
 
 
-      private void removeElement(){
+      public void removeElement(){
             if(!subArray1.isEmpty()){
             subArray1.dequeue();
             BBCoins += 10;
