@@ -14,6 +14,7 @@ public class DynArray {
   public static final int SUB1_CAPACITY = 10;
   public static final int SUB2_CAPACITY = 15;
   public static final int SUB3_CAPACITY = 20;
+  public int BBCoins = 0;
    
    // Konstruktor
   public DynArray() {
@@ -25,53 +26,36 @@ public class DynArray {
     subArray3 = new DynArray();
 
 
-    Timer timer = new Timer(true);
-    timer.scheduleAtFixedRate(new TimerTask()){
-      @Override
-      public void run(){
-        moveElement();
-        
-      }
-   }, 0, 4000);   
-   Timer timer2 = new Timer(true);
-   timer2.scheduleAtFixedRate(new TimerTask()){
-     @Override
-     public void run(){
-      
-       removeElement();
-     }
-  }, 0, 15000); 
-  }
+  
   private void moveElement(){
     if (!isEmpty()) {
       Besucher visitor = dequeue();
       append(); // main array wird nicht leer
 
       if (subArray3.getLength() < SUB3_CAPACITY){
-        subArray3.append(visitor);
+        subArray3.append();
       } else if (subArray2.getLength() < SUB2_CAPACITY){
-        subArray2.append(visitor);
+        subArray2.append();
       } else if (subArray1.getLength() < SUB1_CAPACITY) {
-        subArray1.append(visitor);
+        subArray1.append();
       }
     }
   }
 
 
       private void removeElement(){
-     
-       
-          if(!subArray1.isEmpty()){
+            if(!subArray1.isEmpty()){
             subArray1.dequeue();
+            BBCoins += 10;
           } else if (!subArray2.isEmpty()){
             subArray2.dequeue();
+            BBCoins += 15;
           } else if (!subArray3.isEmpty()){
             subArray3.dequeue();
+            BBCoins += 20;
           }
-        
-
-    }
-  }
+        }
+  
 
 
   // Pruefen, ob die Reihung leer ist
