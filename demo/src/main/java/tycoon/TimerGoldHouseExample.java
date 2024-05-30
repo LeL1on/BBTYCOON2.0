@@ -12,9 +12,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
  
@@ -64,8 +64,14 @@ public class TimerGoldHouseExample extends Application {
     Scene scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight());
     
         primaryStage.setTitle("Timer Gold House Example");
+<<<<<<< HEAD
         
        // overlayH1.setVisible(false);
+=======
+        Image overlayImage1 = new Image("file:haus1.jpg");
+        ImageView overlayH1 = new ImageView(overlayImage1);
+        overlayH1.setVisible(false);
+>>>>>>> 449a90ac6f14978b9edc565c5344617bdaea54f5
         primaryStage.setScene(scene);
         //screenbounds passt die Bildschirmgröße an
         primaryStage.setX(screenBounds.getMinX());
@@ -80,8 +86,14 @@ public class TimerGoldHouseExample extends Application {
         primaryStage.setOnCloseRequest(event -> running = false);
         Hauseins.setOnAction(event ->{
             Hotel h1 = new Hotel(1,1.5, 10, 100); 
+<<<<<<< HEAD
             //overlayH1.setVisible(true);
 
+=======
+            overlayH1.setVisible(true);
+            overlayH1.setX(100);
+            overlayH1.setY(100);
+>>>>>>> 449a90ac6f14978b9edc565c5344617bdaea54f5
             DynArray H1dyn = new DynArray();
         });
     }
