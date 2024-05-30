@@ -1,5 +1,10 @@
 package tycoon;
 
+
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -25,6 +30,12 @@ public class TimerGoldHouseExample extends Application {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         timerLabel = new Label("0 seconds");
         Hauseins = new Button("Kaufe 1. Haus");
+        InputStream stream = new FileInputStream("C:\\Users\\lakid\\Desktop\\PythPro\\BBTYCOON2.0\\demo\\src\\main\\java\\tycoon\\TestHaus.png");
+        Image TestH1 = new Image(stream);
+        ImageView overlayH1 = new ImageView(TestH1);
+        
+        System.out.println(TestH1.getWidth());
+       
         // Thread f�r den Timer und das Gold-Einkommen durch das Haus
         Thread timerThread = new Thread(() -> {
             while (running) {
@@ -46,16 +57,15 @@ public class TimerGoldHouseExample extends Application {
         
         Pane root = new Pane();
         root.setPadding(new Insets(10));
-        root.getChildren().addAll(timerLabel, Hauseins);
+        root.getChildren().addAll(timerLabel, Hauseins, overlayH1);
 
-        root.setId("pane");
+        
         
     Scene scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight());
-    scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+    
         primaryStage.setTitle("Timer Gold House Example");
-        Image overlayImage1 = new Image("haus1.jpg");
-        ImageView overlayH1 = new ImageView(overlayImage1);
-        overlayH1.setVisible(false);
+        
+       // overlayH1.setVisible(false);
         primaryStage.setScene(scene);
         //screenbounds passt die Bildschirmgröße an
         primaryStage.setX(screenBounds.getMinX());
@@ -64,12 +74,14 @@ public class TimerGoldHouseExample extends Application {
         primaryStage.setHeight(screenBounds.getHeight());
         primaryStage.show();
         
+        
 
         // Beende den Timer-Thread, wenn die Anwendung geschlossen wird
         primaryStage.setOnCloseRequest(event -> running = false);
         Hauseins.setOnAction(event ->{
             Hotel h1 = new Hotel(1,1.5, 10, 100); 
-            overlayH1.setVisible(true);
+            //overlayH1.setVisible(true);
+
             DynArray H1dyn = new DynArray();
         });
     }
